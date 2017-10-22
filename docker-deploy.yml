@@ -17,6 +17,9 @@ services:
     image: $DOCKER_NGINX_IMAGE_ID
     ports:
       - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
     links:
       - prof_app
     volumes: 
