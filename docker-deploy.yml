@@ -1,0 +1,35 @@
+version: '3.4'
+services:
+  prof_app:
+    image: $DOCKER_APP_IMAGE_ID
+    expose:
+      - "9000"
+    links:
+      - prof_mysql
+    environment:
+      MYSQL_PASS: root
+      MYSQL_HOST: prof_mysql
+    volumes: 
+      - ./:/var/www/html
+      - prof_app_vol:/var/www/html
+
+  prof_nginx:
+    image: $DOCKER_NGINX_IMAGE_ID
+    ports:
+      - target: 80
+    links:
+      - prof_app
+    volumes: 
+      - prof_app_vol:/var/www/html
+
+  prof_mysql:
+    image: $DOCKER_DB_IMAGE_ID
+    container_name: prof_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: prof
+    volumes:
+      - ./docker_config/mysql_data:/var/lib/mysql
+
+volumes:
+  prof_app_vol:
