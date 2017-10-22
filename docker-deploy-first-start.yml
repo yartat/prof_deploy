@@ -1,0 +1,28 @@
+prof_app:
+    image: $DOCKER_APP_IMAGE_ID
+    expose:
+        - "9000"
+    links:
+       - prof_mysql
+    environment:
+        MYSQL_PASS: root
+        MYSQL_HOST: prof_mysql
+    command: bash -c "./wait-for-mysql.sh && php ./yii migrate --interactive=0"
+
+prof_nginx:
+    image: $DOCKER_NGINX_IMAGE_ID
+    ports:
+        - "80:80"
+    links:
+        - prof_app
+    volumes_from:
+        - prof_app
+
+prof_mysql:
+    image: $DOCKER_DB_IMAGE_ID
+    container_name: prof_mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: prof
+    volumes:
+        - ./docker_config/mysql_data:/var/lib/mysql
