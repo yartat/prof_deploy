@@ -24,5 +24,6 @@ prof_mysql:
     environment:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DATABASE: prof
-    volumes:
+        MYSQL_ROOT_HOST: %
+  volumes:
         - ./docker_config/mysql_data:/var/lib/mysql
