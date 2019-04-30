@@ -1,9 +1,9 @@
 prof_mysql:
-    image: $DOCKER_ID_USER/prof_mysql
-    container_name: prof_mysql
-    environment:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: prof
-        MYSQL_ROOT_HOST: "%"
-    volumes:
-        - ./docker_config/mysql_data:/var/lib/mysql
+  image: $DOCKER_ID_USER/prof_mysql
+  container_name: prof_mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: prof
+    MYSQL_ROOT_HOST: "%"
+  volumes:
+    - ./docker_config/mysql_data:/var/lib/mysql
